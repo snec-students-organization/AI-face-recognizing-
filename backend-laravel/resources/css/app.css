@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    /* Premium Color Palette */
+    --color-primary: oklch(0.65 0.15 200); /* Cinematic Teal */
+    --color-secondary: oklch(0.7 0.2 300); /* Vibrant Purple */
+    --color-accent: oklch(0.85 0.15 80); /* Elegent Gold */
+    --color-surface-base: oklch(0.1 0.02 240); /* Deep Dark Background */
+
+    /* Glassmorphism Tokens */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-blur: blur(12px);
+}
+
+@layer base {
+    body {
+        @apply bg-[var(--color-surface-base)] text-white selection:bg-primary selection:text-white;
+        background:
+            radial-gradient(
+                circle at top right,
+                oklch(0.2 0.05 200 / 0.3),
+                transparent
+            ),
+            radial-gradient(
+                circle at bottom left,
+                oklch(0.15 0.05 300 / 0.3),
+                transparent
+            ),
+            var(--color-surface-base);
+        min-height: 100vh;
+    }
+}
+
+@layer components {
+    .glass-card {
+        @apply bg-[var(--glass-bg)] border border-[var(--glass-border)] shadow-[var(--glass-shadow)] backdrop-blur-[var(--glass-blur)] rounded-2xl overflow-hidden;
+    }
+
+    .top-accent {
+        position: relative;
+    }
+
+    .top-accent::before {
+        content: "";
+        @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent z-20;
+    }
+
+    .btn-premium {
+        @apply px-6 py-2.5 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95;
+        background: linear-gradient(
+            135deg,
+            var(--color-primary),
+            var(--color-secondary)
+        );
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-premium-outline {
+        @apply px-6 py-2.5 rounded-full font-semibold border border-[var(--glass-border)] transition-all duration-300 hover:bg-[var(--glass-bg)] backdrop-blur-sm;
+    }
+}
